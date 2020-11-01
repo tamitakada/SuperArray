@@ -13,15 +13,12 @@ public class SuperArray {
   }
 
   public boolean add(String element) {
-    String[] newData = new String[size + 1];
-    for (int i = 0; i < size; i++) {
-      newData[i] = data[i];
+    if (data.length == size) {
+      resize();
     }
 
-    newData[size] = element;
-
+    data[size] = element;
     size++;
-    data = newData;
 
     return true;
   }
@@ -34,6 +31,13 @@ public class SuperArray {
     String toReplace = data[index];
     data[index] = element;
     return toReplace;
+  }
+
+  public void resize() {
+    String[] newData = new String[size + 10];
+    for (int i = 0; i < size; i++) {
+      newData[i] = data[i];
+    }
   }
 
 }
