@@ -8,6 +8,7 @@ public class SuperTester {
     System.out.println(testArrayCreation());
     System.out.println(testAddAndGet());
     System.out.println(testSet());
+    System.out.println(testResize());
   }
 
   public static boolean testArrayCreation() {
@@ -76,6 +77,32 @@ public class SuperTester {
       if (!test.add(toAdd)) return false;
       if (test.set(0, toSet) != toAdd) return false;
       if (test.get(0) != toSet) return false;
+    }
+
+    return true;
+  }
+
+  public static boolean testResize() {
+    SuperArray one = new SuperArray();
+
+    String[] sample = new String[] {
+      "hello", "abcdef",
+      "54321", "Good Bye",
+      "hjsad", "23123sd",
+      "ahhh", "the cats",
+      "0 + 9 * 2", "  "
+    };
+
+    for (int i = 0; i < 10; i++) {
+      if (!one.add(sample[i])) return false;
+    }
+
+    if (!one.add("eleven")) return false;
+    if (one.size() != 11) return false;
+    if (one.get(10) != "eleven") return false;
+
+    for (int i = 0; i < 10; i++) {
+      if (one.get(i) != sample[i]) return false;
     }
 
     return true;

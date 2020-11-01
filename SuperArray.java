@@ -33,11 +33,12 @@ public class SuperArray {
     return toReplace;
   }
 
-  public void resize() {
+  private void resize() {
     String[] newData = new String[size + 10];
     for (int i = 0; i < size; i++) {
       newData[i] = data[i];
     }
+    data = newData;
   }
 
 }
