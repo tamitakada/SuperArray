@@ -10,6 +10,7 @@ public class SuperTester {
     System.out.println(testSet());
     System.out.println(testResize());
     System.out.println(testIsEmptyAndClear());
+    System.out.println(testToString());
   }
 
   public static boolean testArrayCreation() {
@@ -138,6 +139,25 @@ public class SuperTester {
     two.clear();
     if (!two.isEmpty()) return false;
     if (two.size() != 0) return false;
+
+    return true;
+  }
+
+  public static boolean testToString() {
+    SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray();
+
+    String[] sample = new String[] {
+      "hello", "22",
+      "  ", "E nD"
+    };
+
+    for (int i = 0; i < 4; i++) {
+      if (!two.add(sample[i])) return false;
+    }
+
+    if (!one.toString().equals("[]")) return false;
+    if (!two.toString().equals("[hello, 22,   , E nD]")) return false;
 
     return true;
   }

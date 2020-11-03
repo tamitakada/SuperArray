@@ -51,11 +51,12 @@ public class SuperArray {
   }
 
   public String toString() {
-    String toReturn = "";
+    String toReturn = "[";
     for (int i = 0; i < size; i++) {
       toReturn += data[i];
+      if (i != (size - 1)) toReturn += ", ";
     }
-    return toReturn;
+    return (toReturn + "]");
   }
 
   public boolean contains(String s) {
