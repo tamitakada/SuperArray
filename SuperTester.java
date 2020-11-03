@@ -15,7 +15,11 @@ public class SuperTester {
 
   public static boolean testArrayCreation() {
     SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray(30);
+
     if (one.size() != 0) return false;
+    if (two.size() != 0) return false;
+    
     return true;
   }
 
