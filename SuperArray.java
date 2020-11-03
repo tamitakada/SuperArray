@@ -41,4 +41,28 @@ public class SuperArray {
     data = newData;
   }
 
+  public boolean isEmpty() {
+    return (size == 0);
+  }
+
+  public void clear() {
+    size = 0;
+    data = new String[10];
+  }
+
+  public String toString() {
+    String toReturn = "";
+    for (int i = 0; i < size; i++) {
+      toReturn += data[i];
+    }
+    return toReturn;
+  }
+
+  public boolean contains(String s) {
+    for (int i = 0; i < size; i++) {
+      if (data[i].equals(s)) return true;
+    }
+    return false;
+  }
+
 }

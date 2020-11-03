@@ -9,6 +9,7 @@ public class SuperTester {
     System.out.println(testAddAndGet());
     System.out.println(testSet());
     System.out.println(testResize());
+    System.out.println(testIsEmptyAndClear());
   }
 
   public static boolean testArrayCreation() {
@@ -124,6 +125,21 @@ public class SuperTester {
     }
 
     return str;
+  }
+
+  public static boolean testIsEmptyAndClear() {
+    SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray();
+    if (!(two.add("hello") && two.add("hello 2"))) return false;
+
+    if (!one.isEmpty()) return false;
+    if (two.isEmpty()) return false;
+
+    two.clear();
+    if (!two.isEmpty()) return false;
+    if (two.size() != 0) return false;
+
+    return true;
   }
 
 }
