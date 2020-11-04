@@ -28,6 +28,22 @@ public class SuperArray {
     return true;
   }
 
+  public void add(int index, String element) {
+    int newSize = data.length;
+    if (data.length == size) newSize = (2 * size);
+    String[] newData = new String[newSize];
+
+    size++;
+
+    for (int i = 0; i < size; i++) {
+      if (i < index) newData[i] = data[i];
+      else if (i == index) newData[i] = element;
+      else newData[i] = data[i - 1];
+    }
+
+    data = newData;
+  }
+
   public String get(int index) {
     return data[index];
   }
