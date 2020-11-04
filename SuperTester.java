@@ -11,6 +11,7 @@ public class SuperTester {
     System.out.println(testResize());
     System.out.println(testIsEmptyAndClear());
     System.out.println(testToString());
+    System.out.println(testContains());
     System.out.println(testAddIndex());
   }
 
@@ -145,6 +146,19 @@ public class SuperTester {
 
     if (!one.toString().equals("[]")) return false;
     if (!two.toString().equals("[hello, 22,   , E nD]")) return false;
+
+    return true;
+  }
+
+  public static boolean testContains() {
+    SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray(100);
+
+    if (one.contains("hello")) return false;
+    if (two.contains("2 hello")) return false;
+
+    two.add(0, "2 hello");
+    if (!two.contains("2 hello")) return false;
 
     return true;
   }
