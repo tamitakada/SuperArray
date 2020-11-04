@@ -15,6 +15,7 @@ public class SuperTester {
     System.out.println(testAddIndex());
     System.out.println(testRemove());
     System.out.println(testIndexOf());
+    System.out.println(testToArray());
   }
 
   public static boolean testArrayCreation() {
@@ -271,6 +272,48 @@ public class SuperTester {
     if (!two.remove(3).equals("FOURRR")) return false;
     if (two.indexOf("FOURRR") != -1) return false;
     if (two.indexOf("") != 3) return false;
+
+    return true;
+  }
+
+  public static boolean testToArray() {
+    SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray(6);
+
+    if (one.toArray().length != 0) return false;
+    if (two.toArray().length != 0) return false;
+
+    String[] twoData = new String[] {
+      "one", "2", " 3 ", "FOURRR", "", " s i x!"
+    };
+
+    for (int i = 0; i < 6; i++) {
+      if (!two.add(twoData[i])) return false;
+    }
+
+    String[] arrayified = two.toArray();
+
+    if (arrayified.length != 6) return false;
+
+    for (int j = 0; j < arrayified.length; j++) {
+      if (!arrayified[j].equals(twoData[j])) return false;
+    }
+
+    for (int k = 0; k < 100; k++) {
+      Random rng = new Random();
+      String[] arrData = createRandomArr();
+      SuperArray test = new SuperArray(arrData.length);
+
+      for (int l = 0; l < arrData.length; l++) {
+        if (!test.add(arrData[l])) return false;
+      }
+
+      String[] arrayTest = test.toArray();
+      if (arrayTest.length != arrData.length) return false;
+      for (int m = 0; m < arrayTest.length; m++) {
+        if (!arrayTest[m].equals(arrData[m])) return false;
+      }
+    }
 
     return true;
   }
