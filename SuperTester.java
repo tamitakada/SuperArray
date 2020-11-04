@@ -14,6 +14,7 @@ public class SuperTester {
     System.out.println(testContains());
     System.out.println(testAddIndex());
     System.out.println(testRemove());
+    System.out.println(testIndexOf());
   }
 
   public static boolean testArrayCreation() {
@@ -225,7 +226,7 @@ public class SuperTester {
       if (!two.add(twoData[i])) return false;
     }
 
-    if (two.remove(1) != "2") return false;
+    if (!two.remove(1).equals("2")) return false;
     if (two.size() != 5) return false;
     if (!two.toString().equals("[one,  3 , FOURRR, ,  s i x!]")) return false;
 
@@ -242,9 +243,34 @@ public class SuperTester {
       int toRemove = rng.nextInt(oldSize);
       String strRemoved = test.get(toRemove);
 
-      if (test.remove(toRemove) != strRemoved) return false;
+      if (!test.remove(toRemove).equals(strRemoved)) return false;
       if (test.size() != (oldSize - 1)) return false;
     }
+
+    return true;
+  }
+
+  public static boolean testIndexOf() {
+    SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray(6);
+
+    if (one.indexOf("jasdkasd") != -1) return false;
+    if (two.indexOf("one") != -1) return false;
+
+    String[] twoData = new String[] {
+      "one", "2", " 3 ", "FOURRR", "", " s i x!"
+    };
+
+    for (int i = 0; i < 6; i++) {
+      if (!two.add(twoData[i])) return false;
+    }
+
+    if (two.indexOf("FOURRR") != 3) return false;
+    if (two.indexOf(" ashdkjsad ") != -1) return false;
+
+    if (!two.remove(3).equals("FOURRR")) return false;
+    if (two.indexOf("FOURRR") != -1) return false;
+    if (two.indexOf("") != 3) return false;
 
     return true;
   }
