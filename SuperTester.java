@@ -13,6 +13,7 @@ public class SuperTester {
     System.out.println(testToString());
     System.out.println(testContains());
     System.out.println(testAddIndex());
+    System.out.println(testRemove());
   }
 
   public static boolean testArrayCreation() {
@@ -204,6 +205,45 @@ public class SuperTester {
       test.add(insertionIndex, toAdd);
 
       if (test.get(insertionIndex) != toAdd) return false;
+    }
+
+    return true;
+  }
+
+  public static boolean testRemove() {
+    SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray(100);
+
+    if (one.remove(433) != null) return false;
+    if (two.remove(4) != null) return false;
+
+    String[] twoData = new String[] {
+      "one", "2", " 3 ", "FOURRR", "", " s i x!"
+    };
+
+    for (int i = 0; i < 6; i++) {
+      if (!two.add(twoData[i])) return false;
+    }
+
+    if (two.remove(1) != "2") return false;
+    if (two.size() != 5) return false;
+    if (!two.toString().equals("[one,  3 , FOURRR, ,  s i x!]")) return false;
+
+    for (int j = 0; j < 100; j++) {
+      Random rng = new Random();
+      String[] arrData = createRandomArr();
+      SuperArray test = new SuperArray(arrData.length);
+
+      for (int k = 0; k < arrData.length; k++) {
+        if (!test.add(arrData[k])) return false;
+      }
+
+      int oldSize = test.size();
+      int toRemove = rng.nextInt(oldSize);
+      String strRemoved = test.get(toRemove);
+
+      if (test.remove(toRemove) != strRemoved) return false;
+      if (test.size() != (oldSize - 1)) return false;
     }
 
     return true;

@@ -87,4 +87,25 @@ public class SuperArray {
     return false;
   }
 
+  public String remove(int index) {
+    String[] newData = new String[data.length];
+    int count = 0;
+
+    if (index >= size) return null;
+
+    String toRemove = data[index];
+
+    for (int i = 0; i < size; i++) {
+      if (i != index) {
+        newData[count] = data[i];
+        count++;
+      }
+    }
+
+    data = newData;
+    size--;
+
+    return toRemove;
+  }
+
 }
