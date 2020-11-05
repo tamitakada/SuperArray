@@ -16,6 +16,7 @@ public class SuperTester {
     System.out.println(testRemove());
     System.out.println(testIndexOf());
     System.out.println(testToArray());
+    System.out.println(testRemDuplicates());
   }
 
   public static boolean testArrayCreation() {
@@ -316,6 +317,27 @@ public class SuperTester {
     }
 
     return true;
+  }
+
+  public static boolean testRemDuplicates() {
+    SuperArray one = new SuperArray();
+    String[] oneData = new String[] {
+      "one", "two", "two", "aksjdasd ", " two", "two"
+    };
+    for (int i = 0; i < 6; i++) {
+      if (!one.add(oneData[i])) return false;
+    }
+
+    removeDuplicates(one);
+    if (!one.toString().equals("[one, two, aksjdasd ,  two]")) return false;
+
+    return true;
+  }
+
+  public static void removeDuplicates(SuperArray s) {
+    for (int i = s.size() - 1; i > 0; i--) {
+      if (s.indexOf(s.get(i)) != i) s.remove(i);
+    }
   }
 
   public static String createRandomStr() {
