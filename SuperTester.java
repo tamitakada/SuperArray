@@ -17,6 +17,7 @@ public class SuperTester {
     System.out.println(testIndexOf());
     System.out.println(testToArray());
     System.out.println(testRemDuplicates());
+    System.out.println(testOverlap());
   }
 
   public static boolean testArrayCreation() {
@@ -334,10 +335,54 @@ public class SuperTester {
     return true;
   }
 
+  public static boolean testOverlap() {
+    SuperArray one = new SuperArray();
+    String[] oneData = new String[] {
+      "one", "two", " 3 ", "FOUR", "f i v e", "6.0000 0"
+    };
+
+    SuperArray two = new SuperArray();
+    String[] twoData = new String[] {
+      "one", "2", "THREEEE", "f i v e", " 3 "
+    };
+
+    for (int i = 0; i < 6; i++) {
+      if (!one.add(oneData[i])) return false;
+    }
+
+    for (int i = 0; i < 5; i++) {
+      if (!two.add(twoData[i])) return false;
+    }
+
+    SuperArray overlap = findOverlap(one, two);
+    if (!overlap.toString().equals("[one, f i v e,  3 ]")) return false;
+
+    return true;
+  }
+
   public static void removeDuplicates(SuperArray s) {
     for (int i = s.size() - 1; i > 0; i--) {
       if (s.indexOf(s.get(i)) != i) s.remove(i);
     }
+  }
+
+  public static SuperArray findOverlap(SuperArray a, SuperArray b) {
+    SuperArray larger = a;
+    SuperArray smaller = b;
+    if (b.size() > a.size()) {
+      larger = b;
+      smaller = a;
+    }
+
+    SuperArray overlap = new SuperArray(smaller.size());
+
+    for (int i = 0; i < smaller.size(); i++) {
+      if (larger.contains(smaller.get(i))) {
+        overlap.add(smaller.get(i));
+      }
+    }
+
+    return overlap;
   }
 
   public static String createRandomStr() {
