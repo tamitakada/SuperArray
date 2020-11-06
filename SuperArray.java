@@ -81,10 +81,7 @@ public class SuperArray {
   }
 
   public boolean contains(String s) {
-    for (int i = 0; i < size; i++) {
-      if (s.equals(data[i])) return true;
-    }
-    return false;
+    return (indexOf(s) != -1);
   }
 
   public String remove(int index) {
@@ -123,6 +120,23 @@ public class SuperArray {
     }
 
     return array;
+  }
+
+  public int lastIndexOf(String value){
+    for (int i = size - 1; i > 0; i--) {
+      if (data[i].equals(value)) return i;
+    }
+    return -1;
+  }
+
+  public boolean equals(SuperArray other){
+    if (other.size() != size) return false;
+
+    for (int i = 0; i < size; i++) {
+      if (!other.get(i).equals(data[i])) return false;
+    }
+
+    return true;
   }
 
 }
