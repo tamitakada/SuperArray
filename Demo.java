@@ -4,6 +4,7 @@ public class Demo{
     System.out.println(testRemDuplicates());
     System.out.println(testOverlap());
     System.out.println(testEquals());
+    System.out.println(testZip());
   }
 
   public static boolean testRemDuplicates() {
@@ -11,10 +12,12 @@ public class Demo{
     String[] oneData = new String[] {
       "one", "two", "two", "aksjdasd ", " two", "two"
     };
-    for (int i = 0; i < 6; i++) {
-      if (!one.add(oneData[i])) return false;
-    }
+    one = addData(oneData);
 
+    removeDuplicates(one);
+    if (!one.toString().equals("[one, two, aksjdasd ,  two]")) return false;
+
+    one.add("one");
     removeDuplicates(one);
     if (!one.toString().equals("[one, two, aksjdasd ,  two]")) return false;
 
@@ -77,8 +80,45 @@ public class Demo{
     return true;
   }
 
+  public static boolean testZip() {
+    SuperArray a = new SuperArray();
+    SuperArray b = new SuperArray(100);
+
+    if (!zip(a, b).toString().equals("[]")) return false;
+
+    String[] aData = new String[] {
+      " 1", "TWO!", "", "11", " th r ee", "TWO!"
+    };
+    a = addData(aData);
+
+    String[] bData = new String[] {
+      "one", "two", "threeeeee", "44444"
+    };
+    b = addData(bData);
+
+    if (!zip(a, b).toString().equals(
+      "[ 1, one, TWO!, two, , threeeeee, 11, 44444,  th r ee, TWO!]")) return false;
+
+    aData = new String[] {
+      "a","b","c","d","e","f"
+    };
+    a = addData(aData);
+
+    bData = new String[] {
+      "0","1","2","3"
+    };
+    b = addData(bData);
+
+    if (!zip(a, b).toString().equals("[a, 0, b, 1, c, 2, d, 3, e, f]")) return false;
+
+    b = new SuperArray();
+    if (!zip(a, b).toString().equals(a.toString())) return false;
+
+    return true;
+  }
+
   public static void removeDuplicates(SuperArray s) {
-    for (int i = s.size() - 1; i > 0; i--) {
+    for (int i = s.size() - 1; i >= 0; i--) {
       if (s.indexOf(s.get(i)) != i) s.remove(i);
     }
   }

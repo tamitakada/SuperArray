@@ -16,6 +16,7 @@ public class SuperTester {
     System.out.println(testRemove());
     System.out.println(testIndexOf());
     System.out.println(testToArray());
+    System.out.println(testLastIndex());
   }
 
   public static boolean testArrayCreation() {
@@ -66,17 +67,13 @@ public class SuperTester {
     if (one.set(0, "goodbye") != "hello") return false;
     if (one.get(0) != "goodbye") return false;
 
-    SuperArray two = new SuperArray();
     String[] sample = new String[] {
       "hello",
       "abcdef",
       "54321",
       "Good Bye."
     };
-
-    for (int i = 0; i < 4; i++) {
-      two.add(sample[i]);
-    }
+    SuperArray two = addData(sample);
 
     if (two.set(2, "99ABC") != "54321") return false;
     if (two.get(2) != "99ABC") return false;
@@ -94,8 +91,6 @@ public class SuperTester {
   }
 
   public static boolean testResize() {
-    SuperArray one = new SuperArray();
-
     String[] sample = new String[] {
       "hello", "abcdef",
       "54321", "Good Bye",
@@ -103,10 +98,7 @@ public class SuperTester {
       "ahhh", "the cats",
       "0 + 9 * 2", "  "
     };
-
-    for (int i = 0; i < 10; i++) {
-      if (!one.add(sample[i])) return false;
-    }
+    SuperArray one = addData(sample);
 
     if (!one.add("eleven")) return false;
     if (one.size() != 11) return false;
@@ -136,16 +128,12 @@ public class SuperTester {
 
   public static boolean testToString() {
     SuperArray one = new SuperArray();
-    SuperArray two = new SuperArray();
 
     String[] sample = new String[] {
       "hello", "22",
       "  ", "E nD"
     };
-
-    for (int i = 0; i < 4; i++) {
-      if (!two.add(sample[i])) return false;
-    }
+    SuperArray two = addData(sample);
 
     if (!one.toString().equals("[]")) return false;
     if (!two.toString().equals("[hello, 22,   , E nD]")) return false;
@@ -168,7 +156,6 @@ public class SuperTester {
 
   public static boolean testAddIndex() {
     SuperArray one = new SuperArray();
-    SuperArray two = new SuperArray();
 
     one.add(0, "zero");
     if ((!one.get(0).equals("zero")) || (one.size() != 1)) return false;
@@ -177,10 +164,7 @@ public class SuperTester {
       "hello", "22",
       "  ", "E nD"
     };
-
-    for (int i = 0; i < 4; i++) {
-      if (!two.add(sample[i])) return false;
-    }
+    SuperArray two = addData(sample);
 
     two.add(2, "insert");
 
@@ -196,11 +180,7 @@ public class SuperTester {
     for (int j = 0; j < 100; j++) {
       Random rng = new Random();
       String[] arrData = createRandomArr();
-      SuperArray test = new SuperArray(arrData.length);
-
-      for (int k = 0; k < arrData.length; k++) {
-        if (!test.add(arrData[k])) return false;
-      }
+      SuperArray test = addData(arrData);
 
       String toAdd = createRandomStr();
       int insertionIndex = rng.nextInt(test.size());
@@ -222,10 +202,7 @@ public class SuperTester {
     String[] twoData = new String[] {
       "one", "2", " 3 ", "FOURRR", "", " s i x!"
     };
-
-    for (int i = 0; i < 6; i++) {
-      if (!two.add(twoData[i])) return false;
-    }
+    two = addData(twoData);
 
     if (!two.remove(1).equals("2")) return false;
     if (two.size() != 5) return false;
@@ -261,10 +238,7 @@ public class SuperTester {
     String[] twoData = new String[] {
       "one", "2", " 3 ", "FOURRR", "", " s i x!"
     };
-
-    for (int i = 0; i < 6; i++) {
-      if (!two.add(twoData[i])) return false;
-    }
+    two = addData(twoData);
 
     if (two.indexOf("FOURRR") != 3) return false;
     if (two.indexOf(" ashdkjsad ") != -1) return false;
@@ -314,6 +288,29 @@ public class SuperTester {
         if (!arrayTest[m].equals(arrData[m])) return false;
       }
     }
+
+    return true;
+  }
+
+  public static boolean testLastIndex() {
+    SuperArray one = new SuperArray();
+    SuperArray two = new SuperArray(100);
+
+    if (one.lastIndexOf("hello") != -1) return false;
+    if (two.lastIndexOf("") != -1) return false;
+
+    String[] oneData = new String[] {
+      "one", "  two  ", "33333", "FoUr", "", "", "one"
+    };
+    one = addData(oneData);
+
+    if (one.lastIndexOf("one") != 6) return false;
+    if (one.lastIndexOf("33333") != 2) return false;
+    if (one.lastIndexOf("") != 5) return false;
+    if (one.lastIndexOf("six") != -1) return false;
+
+    one.remove(6);
+    if (one.lastIndexOf("one") != 0) return false;
 
     return true;
   }
