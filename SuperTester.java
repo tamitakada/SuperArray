@@ -17,6 +17,7 @@ public class SuperTester {
     System.out.println(testIndexOf());
     System.out.println(testToArray());
     System.out.println(testLastIndex());
+    System.out.println(Arrays.toString(testConstructorExceptions()));
   }
 
   public static boolean testArrayCreation() {
@@ -318,6 +319,53 @@ public class SuperTester {
     if (one.lastIndexOf("one") != 0) return false;
 
     return true;
+  }
+
+  public static boolean[] testConstructorExceptions() {
+    boolean[] testRecord = new boolean[13];
+
+    try {
+      SuperArray one = new SuperArray(-99);
+      testRecord[0] = false;
+    } catch (IllegalArgumentException e) {
+      testRecord[0] = true;
+    }
+
+    try {
+      SuperArray one = new SuperArray(0);
+      testRecord[1] = true;
+    } catch (IllegalArgumentException e) {
+      testRecord[1] = false;
+    }
+
+    try {
+      SuperArray one = new SuperArray();
+      testRecord[2] = true;
+    } catch (IllegalArgumentException e) {
+      testRecord[2] = false;
+    }
+
+    for (int i = 0; i < 10; i++) {
+      Random rng = new Random();
+      int arg = rng.nextInt(101);
+      int changeSign = rng.nextInt(2);
+
+      if (changeSign == 0) {
+        arg *= -1;
+      }
+
+      boolean result = true;
+      if (arg < 0) result = false;
+
+      try {
+        SuperArray one = new SuperArray(arg);
+        testRecord[3 + i] = result;
+      } catch (IllegalArgumentException e) {
+        testRecord[3 + i] = !result;
+      }
+    }
+
+    return testRecord;
   }
 
   public static SuperArray addData(String[] data) {
