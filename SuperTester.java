@@ -21,6 +21,7 @@ public class SuperTester {
     System.out.println(Arrays.toString(testGetExceptions()));
     System.out.println(Arrays.toString(testSetExceptions()));
     System.out.println(Arrays.toString(testAddExceptions()));
+    System.out.println(Arrays.toString(testRemExceptions()));
   }
 
   public static boolean testArrayCreation() {
@@ -548,6 +549,68 @@ public class SuperTester {
 
       try {
         test.add(arg, "test");
+        testRecord[4 + i] = result;
+      } catch (IndexOutOfBoundsException e) {
+        testRecord[4 + i] = !result;
+      }
+    }
+
+    return testRecord;
+  }
+
+  public static boolean[] testRemExceptions() {
+    boolean[] testRecord = new boolean[14];
+
+    String[] oneData = new String[] {
+      "1", "two", " 3 3", "", "1", "Six"
+    };
+    SuperArray one = addData(oneData);
+
+    try {
+      one.remove(12);
+      testRecord[0] = false;
+    } catch (IndexOutOfBoundsException e) {
+      testRecord[0] = true;
+    }
+
+    try {
+      one.remove(2);
+      testRecord[1] = true;
+    } catch (IndexOutOfBoundsException e) {
+      testRecord[1] = false;
+    }
+
+    try {
+      one.remove(6);
+      testRecord[2] = false;
+    } catch (IndexOutOfBoundsException e) {
+      testRecord[2] = true;
+    }
+
+    try {
+      one.remove(-33);
+      testRecord[3] = false;
+    } catch (IndexOutOfBoundsException e) {
+      testRecord[3] = true;
+    }
+
+    for (int i = 0; i < 10; i++) {
+      Random rng = new Random();
+      String[] testData = createRandomArr();
+      SuperArray test = addData(testData);
+
+      int arg = rng.nextInt(test.size() * 2);
+      int changeSign = rng.nextInt(2);
+
+      if (changeSign == 0) {
+        arg *= -1;
+      }
+
+      boolean result = true;
+      if ((arg < 0) || (arg >= test.size())) result = false;
+
+      try {
+        test.remove(arg);
         testRecord[4 + i] = result;
       } catch (IndexOutOfBoundsException e) {
         testRecord[4 + i] = !result;
