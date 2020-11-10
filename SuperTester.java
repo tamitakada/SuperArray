@@ -196,8 +196,13 @@ public class SuperTester {
     SuperArray one = new SuperArray();
     SuperArray two = new SuperArray(100);
 
-    if (one.remove(433) != null) return false;
-    if (two.remove(4) != null) return false;
+    try {
+      one.remove(433);
+      two.remove(4);
+      return false;
+    } catch (IndexOutOfBoundsException e) {
+
+    }
 
     String[] twoData = new String[] {
       "one", "2", " 3 ", "FOURRR", "", " s i x!"
